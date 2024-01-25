@@ -1,0 +1,95 @@
+﻿@using Caloracker1.Data
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Caloracker</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Caloracker.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/bootstrap-icons/font/bootstrap-icons.css" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-custom-tertiary mt-3 ms-5 me-5 rounded-3 ">
+            <div class="container-fluid">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-arrow-clockwise ms-5" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
+                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+                </svg>
+                <a class="navbar-brand text-white fw-bolder ms-0 me-0" href="#">aloracker</a>
+
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item ms-3">
+                                <a class="nav-link active text-white fw-semibold" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            @if (!User.IsInRole(UserRoles.Role_Admin))
+                            {
+                                <li class="nav-item ms-3">
+                                    <a class="nav-link text-white fw-semibold" asp-controller="Tracks" asp-action="DetailsUserID" asp-route-id="@userId">Tracker</a>
+                                </li>
+                            }
+                            @if (User.IsInRole(UserRoles.Role_Admin))
+                            {
+                                <li class="nav-item ms-3">
+                                    <a class="nav-link text-white fw-semibold" asp-controller="Tracks" asp-action="Index">Tracker</a>
+                                </li>
+                            }
+                            <li class="nav-item ms-3">
+                                <a class="nav-link text-white fw-semibold" asp-controller="Meals" asp-action="Index">Meal</a>
+                            </li>
+                            @if (!User.IsInRole(UserRoles.Role_User))
+                            {
+                                <li class="nav-item ms-3">
+                                    <a class="nav-link text-white fw-semibold" asp-controller="Recipes" asp-action="Index">Recipe</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <partial name="_LoginPartial"></partial>
+                   
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - Caloracker - <a asp-area="" asp-controller="Home" asp-action="Privacy">About Us</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

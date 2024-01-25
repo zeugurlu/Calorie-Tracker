@@ -1,0 +1,52 @@
+﻿@model Caloracker1.Models.CommentsOfRecipe
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>CommentsOfRecipe</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContentOfComment" class="control-label"></label>
+                <input asp-for="ContentOfComment" class="form-control" />
+                <span asp-validation-for="ContentOfComment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecipeId" class="control-label"></label>
+                <select asp-for="RecipeId" class ="form-control" asp-items="ViewBag.RecipeId"></select>
+            </div>
+            <div class="form-group" style="display:none;">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" value="@userId" class="form-control" readonly />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

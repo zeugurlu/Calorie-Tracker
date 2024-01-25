@@ -1,0 +1,101 @@
+﻿@model Caloracker1.Models.Meal
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<script>
+    function addMealAndRedirect() {
+        // Perform an action to add the meal to the tracker (e.g., make an AJAX request)
+        // For simplicity, let's assume you have an action method named 'AddMealToTracker' in the 'Tracks' controller.
+
+        // This is just a placeholder, you need to adjust it based on your actual implementation.
+        // You may want to use Fetch API or jQuery.ajax for making an AJAX request.
+        fetch('@Url.Action("AddMealToTracker", "Tracks", new { mealId = Model?.Id })', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': $('input[name="__RequestVerificationToken"]').val() // Add CSRF token if using Antiforgery
+            },
+            body: JSON.stringify({ /* any additional data you want to send */ })
+        })
+            .then(response => {
+                if (response.ok) {
+                    // If the meal is successfully added, redirect to the Index page
+                    window.location.href = '@Url.Action("Index", "Premium")';
+                } else {
+                    // Handle the case where adding the meal fails
+                    console.error('Failed to add the meal to the tracker.');
+                }
+            })
+            .catch(error => {
+                console.error('An error occurred while adding the meal:', error);
+            });
+    }
+</script>
+
+
+<h1>Edit</h1>
+
+<h4>Meal</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalCalorie" class="control-label"></label>
+                <input asp-for="TotalCalorie" class="form-control" />
+                <span asp-validation-for="TotalCalorie" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Carbonhydrate" class="control-label"></label>
+                <input asp-for="Carbonhydrate" class="form-control" />
+                <span asp-validation-for="Carbonhydrate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Protein" class="control-label"></label>
+                <input asp-for="Protein" class="form-control" />
+                <span asp-validation-for="Protein" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fat" class="control-label"></label>
+                <input asp-for="Fat" class="form-control" />
+                <span asp-validation-for="Fat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

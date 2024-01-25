@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Caloracker1.Models.Track>
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "Index";
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var userTracks = Model.Where(item => item.CalorackerUser.Id == userId);
+}
+
+<h1>Index</h1>
+
+<p>User ID: @userId</p>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DailyCalorie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalBudget)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Breakfast)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lunch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dinner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CupWater)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalKarbs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalProteins)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalFats)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CalorackerUser)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DailyCalorie)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalBudget)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Breakfast)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lunch)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dinner)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CupWater)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalKarbs)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalProteins)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalFats)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CalorackerUser.Id)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

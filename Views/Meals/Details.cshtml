@@ -1,0 +1,103 @@
+﻿@using Caloracker1.Data
+@model Caloracker1.Models.Meal
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+@{
+    <script>
+        document.getElementById('updateDailyCalorieButton').addEventListener('click', function () {
+            // JavaScript kullanarak Tracker'ı güncelleme işlemini gerçekleştir
+            var userId = '@userId';
+            var calorie = @Model.TotalCalorie;
+
+            // AJAX kullanarak Tracker'ı güncelle
+            $.ajax({
+                url: '/Tracks/UpdateDailyCalorie',
+                type: 'POST',
+                data: { userId: userId, calorie: calorie },
+                success: function () {
+                    console.log('DailyCalorie updated successfully.');
+                },
+                error: function () {
+                    console.error('Failed to update DailyCalorie.');
+                }
+            });
+        });
+    </script>
+}
+
+@{
+    <script>
+        function redirectToIndexPage() {
+            window.location.href = '@Url.Action("Index", "Premium")';
+        }
+    </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+}
+
+<div class="container text-center mt-5">
+    <div class="row">
+        <div class="col mt-2">
+            <img src="@Html.DisplayFor(model => model.ImageUrl)" style="width:230px; height:230px; border:4px solid #5ECD81; border-radius:5px;"></img>
+            <p style="color:black; font-size:24px; font-weight:600; margin:10px;"> @Html.DisplayFor(model => model.Name)</p>
+            <p style="color:black; font-size:14px; margin:10px; padding:0 15px; line-height: 1.5; text-align: justify;">@Html.DisplayFor(model => model.Description)</p>
+
+            <div class="d-grid gap-2" style="padding: 0 25px; margin-top:15px;">
+                <form method="post" action="@Url.Action("UpdateDailyCalorie", "Tracks")">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="userId" value="@userId" />
+                    <input type="hidden" name="calorie" value="@Model.TotalCalorie" />
+                    <input type="hidden" name="karbs" value="@Model.Carbonhydrate" />
+                    <input type="hidden" name="proteins" value="@Model.Protein" />
+                    <input type="hidden" name="fats" value="@Model.Fat" />
+                    <button style="width:12.5rem;" type="submit" class="btn btn-dark">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                        </svg> Add
+                    </button>
+                </form>
+            </div>
+
+
+        </div>
+        <div class="col-6 mt-5">
+            <div class="input-group mb-3">
+                <input type="number" class="form-control" placeholder=" @Html.DisplayFor(model => model.TotalCalorie) kcal" aria-label="calorie" disabled>
+                <span class="input-group-text">X</span>
+                <input type="number" class="form-control" placeholder="@Html.DisplayFor(model => model.Amount) gr" aria-label="Server" disabled>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Carbonhydrate</th>
+                        <th scope="col">Protein</th>
+                        <th scope="col">Fat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td> @Html.DisplayFor(model => model.Carbonhydrate) gr</td>
+                        <td>@Html.DisplayFor(model => model.Protein) gr</td>
+                        <td>@Html.DisplayFor(model => model.Fat) gr</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col" onclick="redirectToIndexPage()" style="cursor:pointer;">
+            <img src="~/images/SideBanner.jpeg" style="width:300px;height:600px"></img>
+        </div>
+    </div>
+</div>
+@if (User.IsInRole(UserRoles.Role_Admin))
+{
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+}
