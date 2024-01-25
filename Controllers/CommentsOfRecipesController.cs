@@ -20,11 +20,12 @@ namespace Caloracker1.Controllers
         }
 
         // GET: CommentsOfRecipes
-        public async Task<IActionResult> Index()
+         public async Task<IActionResult> Index()
         {
-            var caloracker1Context = _context.CommentsOfRecipe.Include(c => c.CalorackerUser).Include(c => c.Recipe);
+         var caloracker1Context = _context.CommentsOfRecipe.Include(c => c.CalorackerUser).Include(c => c.Recipe);
             return View(await caloracker1Context.ToListAsync());
-        }
+         }
+
 
         public async Task<IActionResult> IndexOfRecipe(int? id)
         {
@@ -38,7 +39,6 @@ namespace Caloracker1.Controllers
                 .Include(c => c.CalorackerUser)
                 .Include(c => c.Recipe)
                 .Where(c => c.RecipeId == id);
-
             return View(await caloracker1Context.ToListAsync());
         }
         // GET: CommentsOfRecipes/Details/5
@@ -69,6 +69,7 @@ namespace Caloracker1.Controllers
             return View();
         }
 
+
         // POST: CommentsOfRecipes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -87,6 +88,7 @@ namespace Caloracker1.Controllers
             return View(commentsOfRecipe);
         }
 
+        
 
         // GET: CommentsOfRecipes/Edit/5
         public async Task<IActionResult> Edit(int? id)

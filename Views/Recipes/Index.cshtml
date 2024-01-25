@@ -31,7 +31,7 @@
                 <div style="display:flex; flex-direction:row; gap:1rem; justify-content:center; align-items:center; text-align:start; cursor: pointer;"
                      onclick="location.href='@Url.Action("Details", new { id = item.Id })';">
 
-                    <div class="card mb-3" style="max-width: 640px; border: 3px solid #b2b7bb; border-radius:5px">
+                    <div class="card mb-3" style="max-width: 780px; border: 3px solid #b2b7bb; border-radius:5px">
                         <div class="row g-0">
                             <div class="col-md-4">
                                 <img src=" @Html.DisplayFor(modelItem => item.imageUrl)" class="img-fluid rounded-start" alt="recipe">
@@ -66,24 +66,8 @@
 
             }
         </div>
-
-        <div class="col-md-auto">
-            <div class="list-group" style="width: max-content; overflow-y: auto; max-height: 600px;">
-                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                    The current link item
-                </a>
-                @foreach (var item in Model)
-                {
-                    <a asp-action="Details" asp-route-id="@item.Id" class="list-group-item list-group-item-action">@Html.DisplayFor(modelItem => item.Name)</a>
-                    <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                }
-            </div>
-
-        </div>
         <div class="col col-lg-3" onclick="redirectToIndexPage()" style="cursor:pointer;">
-            <img src="~/images/SideBanner.jpeg" style="width:300px;height:600px"></img>
+            <img src="~/images/SideBanner.jpeg" style="width:320px;height:620px"></img>
 
         </div>
     </div>
