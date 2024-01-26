@@ -50,7 +50,7 @@ public class UserController : Controller
             userRole = new IdentityUserRole<string>
             {
                 UserId = userId,
-                RoleId = role.Id
+                RoleId = "222314569878965412358964789602159xcv",
             };
 
             _context.UserRoles.Add(userRole);

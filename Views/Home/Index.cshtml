@@ -11,8 +11,19 @@
                         function redirectToRecipePage() {
                             window.location.href = '@Url.Action("Index", "Recipes")';
                         }
- 
                     </script>
+    <script>
+        var isPremiumUser = @User.IsInRole(UserRoles.Role_PremiumUser) ? true : false;
+
+        function redirectToBoth() {
+            if (isPremiumUser) {
+                window.location.href = '@Url.Action("Index", "Recipes")';
+            } else {
+                window.location.href = '@Url.Action("Index", "Premium")';
+            }
+        }
+    </script>
+
 }
     
 
@@ -22,7 +33,7 @@
 <body>
 <div class="mt-3 mb-3">
     <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner" onclick="redirectToIndexPage()" style="cursor:pointer;">
+            <div class="carousel-inner" onclick="redirectToBoth()" style="cursor:pointer;">
             <div class="carousel-item active">
                 <img src="~/images/banner5.png" class="d-block w-100" alt="...">
             </div>

@@ -29,15 +29,12 @@ namespace Caloracker1.Data
                 .HasForeignKey<Track>(t => t.UserId)
                 .HasPrincipalKey<CalorackerUser>(u => u.Id);
 
-
-            // Comment - User ilişkisi
             modelBuilder.Entity<CommentsOfRecipe>()
-                .HasOne(c => c.CalorackerUser)
-                .WithMany(u => u.CommentsOfRecipes)
-                .HasForeignKey(c => c.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+            .HasOne(c => c.CalorackerUser)
+            .WithMany(u => u.CommentsOfRecipes)
+            .HasForeignKey(c => c.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-            // Comment - Recipe ilişkisi
             modelBuilder.Entity<CommentsOfRecipe>()
                 .HasOne(c => c.Recipe)
                 .WithMany(r => r.CommentsOfRecipes)
@@ -45,8 +42,8 @@ namespace Caloracker1.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
 
-        }
 
+        }
 
 
         public DbSet<Caloracker1.Models.Meal> Meal { get; set; } = default!;

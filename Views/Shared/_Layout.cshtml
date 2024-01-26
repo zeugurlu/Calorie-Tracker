@@ -55,14 +55,14 @@
                             @if (User.IsInRole(UserRoles.Role_Admin))
                             {
                                 <li class="nav-item ms-3">
-                                    <a class="nav-link text-white fw-semibold" asp-controller="User" asp-action="Index">Tracker</a>
+                                    <a class="nav-link text-white fw-semibold" asp-controller="User" asp-action="Index">User</a>
                                 </li>
                             }
                             <li class="nav-item ms-3">
                                 <a class="nav-link text-white fw-semibold" asp-controller="Meals" asp-action="Index">Meal</a>
                             </li>
 
-                            @if (User.IsInRole(UserRoles.Role_PremiumUser))
+                            @if (User.IsInRole(UserRoles.Role_PremiumUser) || User.IsInRole(UserRoles.Role_Admin))
                                 {
                                 <li class="nav-item ms-3">
                                     <a class="nav-link text-white fw-semibold" asp-controller="Recipes" asp-action="Index">Recipe</a>

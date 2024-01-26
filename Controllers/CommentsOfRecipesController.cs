@@ -61,7 +61,6 @@ namespace Caloracker1.Controllers
             return View(commentsOfRecipe);
         }
 
-        // GET: CommentsOfRecipes/Create
         public IActionResult Create()
         {
             ViewData["UserId"] = new SelectList(_context.CalorackerUsers, "Id", "Id");
@@ -69,10 +68,7 @@ namespace Caloracker1.Controllers
             return View();
         }
 
-
-        // POST: CommentsOfRecipes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: CommentsOfRecipe/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,ContentOfComment,RecipeId,UserId")] CommentsOfRecipe commentsOfRecipe)
@@ -83,12 +79,15 @@ namespace Caloracker1.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["UserId"] = new SelectList(_context.CalorackerUsers, "Id", "Id", commentsOfRecipe.UserId);
             ViewData["RecipeId"] = new SelectList(_context.Recipe, "Id", "Id", commentsOfRecipe.RecipeId);
             return View(commentsOfRecipe);
         }
 
-        
+
+
+
 
         // GET: CommentsOfRecipes/Edit/5
         public async Task<IActionResult> Edit(int? id)
