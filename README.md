@@ -1,6 +1,7 @@
 
+# CALORACKER
 
-Purpose of the Project
+## Purpose of the Project
 Dieting and losing weight are extremely difficult tasks that require prolonged focus. Eating healthy is difficult, especially when television is constantly directing you with advertisements promoting foods that will cause you to gain weight. Caloracker website aims to provide users with the best possible experience when it comes to managing their dietary and nutritional needs, whether they are focused on weight management, health improvement, or dietary tracking. It provides users a platform to simply keep track of and control their food choices. After signing up and logging in, users can easily track their eating habits and create goals. Users can input their dietary information, log their meals, and monitor their progress. In addition, Caloracker premium members receive special advantages, such as access to a variety of premium recipes and meal plans, guaranteeing that they always have access to wholesome, high-quality meal ideas. As a result, a diet tracker will be a significant step toward living a healthy life.
 Requirement of the Project
 1. The project must include user registration and login.
@@ -16,15 +17,15 @@ Requirement of the Project
 11. The premium user will be able to see the recipes and view the content of how this recipe is made.
 12. The premium user will be able to see the calories, protein, fat, and carbohydrate amounts of the recipes.
 
-Libraries of the Project
+# Libraries of the Project
 1. Scaffold Identity Library
 
-Users of the Project
+# Users of the Project
 1. User
 2. Premium User
 3. Admin
 
-Functionality of the Project
+# Functionality of the Project
 1. Users can create accounts.
 2. Users can log in securely.
 3. Users can log out from their account.
@@ -44,7 +45,7 @@ Functionality of the Project
 17. Admin can see all the user in the system.
 18. Users can view the packages to become premium user.
     
-Problems of the Project
+# Problems of the Project
 1. It was difficult to create an empty tracker even for each user, so we could not create a daily tracker. We wrote a function that would create a new tracker for each user every 24 hours, but it did not work.
 2. Premium user cannot delete, edit, or create comments. We don't know exactly why, but it doesn't work despite having all the crud controllers and views.
 3. The user must be updated from the database to become premium or admin. We couldn't do it because the library we used was causing problems.
